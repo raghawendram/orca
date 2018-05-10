@@ -38,6 +38,7 @@ import org.jetbrains.spek.api.dsl.*
 import org.jetbrains.spek.api.lifecycle.CachingMode.GROUP
 import org.jetbrains.spek.subject.SubjectSpek
 import org.springframework.context.ApplicationEventPublisher
+import rx.Observable.just
 import java.util.*
 
 object StartExecutionHandlerTest : SubjectSpek<StartExecutionHandler>({
@@ -275,7 +276,10 @@ object StartExecutionHandlerTest : SubjectSpek<StartExecutionHandler>({
           pipeline.isLimitConcurrent = true
           runningPipeline.isLimitConcurrent = true
 
-          whenever(pendingExecutionService.depth(configId)) doReturn 1
+          whenever(
+            repository
+              .retrievePipelinesForPipelineConfigId(configId, ExecutionCriteria().setLimit(1).setStatuses(RUNNING))
+          ) doReturn just(runningPipeline)
           whenever(
             repository.retrieve(message.executionType, message.executionId)
           ) doReturn pipeline
@@ -306,7 +310,10 @@ object StartExecutionHandlerTest : SubjectSpek<StartExecutionHandler>({
           pipeline.isLimitConcurrent = false
           runningPipeline.isLimitConcurrent = false
 
-          whenever(pendingExecutionService.depth(configId)) doReturn 1
+          whenever(
+            repository
+              .retrievePipelinesForPipelineConfigId(configId, ExecutionCriteria().setLimit(1).setStatuses(RUNNING))
+          ) doReturn just(runningPipeline)
           whenever(
             repository.retrieve(message.executionType, message.executionId)
           ) doReturn pipeline

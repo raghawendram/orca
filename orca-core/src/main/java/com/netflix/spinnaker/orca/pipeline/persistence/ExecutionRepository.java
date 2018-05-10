@@ -15,6 +15,7 @@
  */
 package com.netflix.spinnaker.orca.pipeline.persistence;
 
+import com.google.common.collect.Lists;
 import com.netflix.spinnaker.orca.ExecutionStatus;
 import com.netflix.spinnaker.orca.pipeline.model.Execution;
 import com.netflix.spinnaker.orca.pipeline.model.Execution.ExecutionType;
@@ -24,6 +25,7 @@ import rx.Observable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 

@@ -17,6 +17,7 @@
 package com.netflix.spinnaker.orca.controllers
 
 import java.time.Clock
+import groovy.util.logging.Slf4j
 import com.netflix.spinnaker.orca.ExecutionStatus
 import com.netflix.spinnaker.orca.front50.Front50Service
 import com.netflix.spinnaker.orca.model.OrchestrationViewModel
@@ -42,6 +43,7 @@ import static com.netflix.spinnaker.orca.pipeline.model.Execution.ExecutionType.
 import static com.netflix.spinnaker.orca.pipeline.model.Execution.ExecutionType.PIPELINE
 import static java.time.ZoneOffset.UTC
 
+@Slf4j
 @RestController
 class TaskController {
   @Autowired(required = false)
